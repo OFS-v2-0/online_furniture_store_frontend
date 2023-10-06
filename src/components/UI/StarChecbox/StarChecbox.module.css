@@ -13,16 +13,15 @@
 .checkbox label::before {
 	content: '';
 	display: block;
-	height: 23px;
-	width: 23px;
-	border: 1px solid #999;
-	border-radius: 4px;
+	height: 26px;
+	width: 26px;
+	background: url('../../../assets/img/star.svg') no-repeat center;
+	opacity: 0.5;
 	cursor: pointer;
 }
 
 .checkbox input[type='checkbox']:checked + label::before {
 	content: '';
-	background: url('../../../assets/img/checkMark.svg') no-repeat center;
-	background-color: #000;
-	color: #fff;
+	background: url('../../../assets/img/star.svg') no-repeat center;
+	opacity: 1;
 }

@@ -23,6 +23,7 @@ import {
 import ProtectedRoute from '../Hoc/ProtectedRoute/ProtectedRoute';
 
 import ProductPage from '../../pages/ProductPage/ProductPage';
+import CatalogPage from '../../pages/CatalogPage/CatalogPage';
 import { updateToken } from '../../store/auth/auth-slice';
 import { fetchUser } from '../../store/user/user-slice';
 import { modals } from '../../utils/modals';
@@ -59,7 +60,7 @@ function App() {
 						<Route path="/cart" element={<CartPage />} />
 						<Route path="/product/:id" element={<ProductPage />} />
 						<Route path="/arm-chairs" element={<PageInDevelopment />} />
-						<Route path="/tables" element={<PageInDevelopment />} />
+						<Route path="/tables" element={<CatalogPage />} />
 						<Route path="/wardrobes" element={<PageInDevelopment />} />
 						<Route path="/sofas" element={<PageInDevelopment />} />
 						<Route path="/sale" element={<PageInDevelopment />} />

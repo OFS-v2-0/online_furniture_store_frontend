@@ -23,7 +23,7 @@
 }
 
 .helpLinks {
-    margin-top: 20px;
+	margin-top: 20px;
 	display: flex;
 	justify-content: space-between;
 }
@@ -34,10 +34,10 @@
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
-    color: #6c6c6c;
+	color: #6c6c6c;
 }
 
 .link:hover {
-    cursor: pointer;
-    opacity: 0.8;
+	cursor: pointer;
+	opacity: 0.8;
 }
