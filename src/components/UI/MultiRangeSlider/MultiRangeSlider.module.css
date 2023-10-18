@@ -54,7 +54,7 @@
 .slider__leftValue_input,
 .slider__rightValue_input {
 	all: unset;
-  margin-left: 10px;
+  margin: 0 5px 0;
 	color: var(--main-black);
 	border-radius: 10px;
 	border: 0.5px solid var(--main-black);
@@ -118,4 +118,13 @@
 	margin-top: 4px;
 	pointer-events: all;
 	position: relative;
+}
+
+.show {
+	display: block;
+}
+
+.hide {
+	display: none;
+	height: 0;
 }

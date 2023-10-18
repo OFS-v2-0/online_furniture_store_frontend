@@ -52,33 +52,22 @@ const filtersSlice = createSlice({
 	name: sliceName,
 	initialState,
 	reducers: {
-		setMinPrice: (state, action) => {
-			state.filters.min_total_price = action.payload;
+		setPrice: (state, action) => {
+			state.filters.min_total_price = action.payload.min;
+			state.filters.max_total_price = action.payload.max;
 		},
 
-		setMaxPrice: (state, action) => {
-			state.filters.max_total_price = action.payload;
-		},
-
-		setMinWeight: (state, action) => {
-			state.filters.weight_min = action.payload;
-		},
-
-		setMaxWeight: (state, action) => {
-			state.filters.weight_max = action.payload;
+		setWeight: (state, action) => {
+			state.filters.weight_min = action.payload.min;
+			state.filters.weight_max = action.payload.max;
 		},
 
 		setMinRaiting: (state, action) => {
 			state.filters.min_rating_unused = action.payload;
 		},
 		setWarranty: (state, action) => {
-			if (state.filters.warranty_min === action.payload) {
-				state.filters.warranty_min = 0;
-				state.filters.warranty_max = 0;
-			} else {
-				state.filters.warranty_min = action.payload;
-				state.filters.warranty_max = action.payload;
-			}
+				state.filters.warranty_min = action.payload.min;
+				state.filters.warranty_max = action.payload.max;
 		},
 		setInStock: (state) => {
 			if (state.filters.in_stock === 'true') {
@@ -159,11 +148,9 @@ const filtersSlice = createSlice({
 
 export const selectFilters = (state) => state[sliceName];
 export const {
-	setMinPrice,
-	setMaxPrice,
+	setPrice,
 	setMinRaiting,
-	setMinWeight,
-	setMaxWeight,
+	setWeight,
 	setWarranty,
 	setInStock,
 	setToOrder,

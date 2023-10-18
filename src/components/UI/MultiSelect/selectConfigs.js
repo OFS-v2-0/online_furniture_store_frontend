@@ -31,6 +31,10 @@ export const multiSelectStyles = {
 				: '1px solid #999',
 		},
 	}),
+	menu: (baseStyles) => ({
+		...baseStyles,
+		zIndex: '1000',
+	}),
 	menuList: (baseStyles) => ({
 		...baseStyles,
 		maxHeight: '200px',

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styles from './MultiRangeSlider.module.css';
 
-function MultiRangeSlider({ min, max, onChange, reset }) {
+function MultiRangeSlider({ min, max, onChange, reset, rangeBar, labelInput }) {
 	const [minVal, setMinVal] = useState(min);
 	const [maxVal, setMaxVal] = useState(max);
 	const minValRef = useRef(min);
@@ -11,7 +11,7 @@ function MultiRangeSlider({ min, max, onChange, reset }) {
 	const defaultMin = min;
 	const defaultMax = max;
 
-		useEffect(() => {
+	useEffect(() => {
 		if (reset) {
 			setMinVal(defaultMin);
 			setMaxVal(defaultMax);
@@ -61,7 +61,7 @@ function MultiRangeSlider({ min, max, onChange, reset }) {
 	const handleBlurMax = (e) => {
 		const value = +e.target.value.replace(/[^0-9]/g, '');
 		if (value > +minVal) setMaxVal(value);
-		else setMaxVal(+minVal + 1);
+		else setMaxVal(+minVal);
 	};
 
 	const handleEnterPress = (e) => {
@@ -77,11 +77,14 @@ function MultiRangeSlider({ min, max, onChange, reset }) {
 	const handleBlurMin = (e) => {
 		const value = +e.target.value.replace(/[^0-9]/g, '');
 		if (value < +maxVal) setMinVal(value);
-		else setMinVal(+maxVal - 1);
+		else setMinVal(+maxVal);
 	};
 
 	return (
-		<div className={styles.container}>
+		<div
+			style={!rangeBar ? { height: '0px', marginBottom: '-16px' } : null}
+			className={styles.container}
+		>
 			<input
 				type="range"
 				min={min}
@@ -92,7 +95,11 @@ function MultiRangeSlider({ min, max, onChange, reset }) {
 					setMinVal(value);
 					minValRef.current = value;
 				}}
-				className={`${styles.thumb} ${styles.thumbLeft}`}
+				className={
+					rangeBar
+						? `${styles.thumb} ${styles.thumbRight} ${styles.show}`
+						: `${styles.thumb} ${styles.thumbRight} ${styles.hide}`
+				}
 				style={{ zIndex: minVal > max - 100 && '5' }}
 			/>
 			<input
@@ -105,25 +112,55 @@ function MultiRangeSlider({ min, max, onChange, reset }) {
 					setMaxVal(value);
 					maxValRef.current = value;
 				}}
-				className={`${styles.thumb} ${styles.thumbRight}`}
+				className={
+					rangeBar
+						? `${styles.thumb} ${styles.thumbRight} ${styles.show}`
+						: `${styles.thumb} ${styles.thumbRight} ${styles.hide}`
+				}
 			/>
 
 			<div className={styles.slider}>
-				<div className={styles.slider__track} />
-				<div ref={range} className={styles.slider__range} />
+				<div
+					className={
+						rangeBar
+							? `${styles.slider__track} ${styles.show}`
+							: `${styles.slider__track} ${styles.hide}`
+					}
+				/>
+				<div
+					ref={range}
+					className={
+						rangeBar
+							? `${styles.slider__range} ${styles.show}`
+							: `${styles.slider__range} ${styles.hide}`
+					}
+				/>
 				<div className={styles.slider__leftValue}>
 					<label className={styles.slider__leftValue_label}>
 						от&nbsp;
 						<input
 							type="text"
-							maxLength={6}
-							size={4}
-							value={new Intl.NumberFormat('ru-RU').format(minVal)}
+							maxLength={
+								`${defaultMax}`.length > 3
+									? `${defaultMax}`.length + 1
+									: `${defaultMax}`.length
+							}
+							size={
+								`${defaultMax}`.length > 1
+									? `${defaultMax}`.length - 1
+									: `${defaultMax}`.length
+							}
+							value={
+								minVal === 0 && `${defaultMax}`.length === 1
+									? ''
+									: new Intl.NumberFormat('ru-RU').format(minVal)
+							}
 							onChange={handleChangeMin}
 							onBlur={handleBlurMin}
 							onKeyDown={handleEnterPress}
 							className={styles.slider__rightValue_input}
 						/>
+						&nbsp;{labelInput}
 					</label>
 				</div>
 				<div className={styles.slider__rightValue}>
@@ -131,14 +168,27 @@ function MultiRangeSlider({ min, max, onChange, reset }) {
 						до&nbsp;
 						<input
 							type="text"
-							maxLength={6}
-							size={4}
-							value={new Intl.NumberFormat('ru-RU').format(maxVal)}
+							maxLength={
+								`${defaultMax}`.length > 3
+									? `${defaultMax}`.length + 1
+									: `${defaultMax}`.length
+							}
+							size={
+								`${defaultMax}`.length > 1
+									? `${defaultMax}`.length - 1
+									: `${defaultMax}`.length
+							}
+							value={
+								maxVal === 0
+									? ''
+									: new Intl.NumberFormat('ru-RU').format(maxVal)
+							}
 							onChange={handleChangeMax}
 							onBlur={handleBlurMax}
 							onKeyDown={handleEnterPress}
 							className={styles.slider__rightValue_input}
 						/>
+						&nbsp;{labelInput}
 					</label>
 				</div>
 			</div>
@@ -151,6 +201,8 @@ MultiRangeSlider.propTypes = {
 	max: PropTypes.number.isRequired,
 	onChange: PropTypes.func.isRequired,
 	reset: PropTypes.bool,
+	rangeBar: PropTypes.bool,
+	labelInput: PropTypes.string,
 };
 
 export default MultiRangeSlider;

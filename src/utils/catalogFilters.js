@@ -5,7 +5,7 @@ import InStock from '../components/CatalogFilters/InStock';
 import Delivery from '../components/CatalogFilters/Delivery';
 import Collection from '../components/CatalogFilters/Collection';
 // import Brand from '../components/CatalogFilters/Brand';
-import Warranty from '../components/CatalogFilters/Warranty';
+// import Warranty from '../components/CatalogFilters/Warranty';
 // import SpecialOffers from '../components/CatalogFilters/SpecialOffers';
 // import Colors from '../components/CatalogFilters/Colors';
 // import Material from '../components/CatalogFilters/Material';
@@ -14,7 +14,7 @@ export const mainFilters = [
 	{
 		id: uuidv4(),
 		heading: 'Цена',
-		content: <Range type="price" minValue={0} maxValue={99999} />,
+		content: <Range type="price" minValue={0} maxValue={99999} rangeBar labelInput="&#8381;" />,
 	},
 	{
 		id: uuidv4(),
@@ -44,12 +44,12 @@ export const mainFilters = [
 	{
 		id: uuidv4(),
 		heading: 'Вес товара',
-		content: <Range type="weight" minValue={0} maxValue={99} />,
+		content: <Range type="weight" minValue={0} maxValue={99} rangeBar labelInput="кг" />,
 	},
 	{
 		id: uuidv4(),
 		heading: 'Гарантия',
-		content: <Warranty />,
+		content: <Range type="warranty" minValue={2} maxValue={5} labelInput="лет" />,
 	},
 	// {
 	// 	id: uuidv4(),
