@@ -5,14 +5,26 @@ import {
 	AccordionItemButton,
 	AccordionItemPanel,
 } from 'react-accessible-accordion';
-import { filters } from '../../utils/catalogFilters';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { mainFilters } from '../../utils/catalogFilters';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import styles from './FiltersPanel.module.css';
 import BlackButton from '../UI/BlackButton/BlackButton';
+import { resetFilters, selectFilters } from '../../store/filters/filters-slice';
+import { fetchProductsWithParams } from '../../store/products/products-slice';
 
-function FiltersPanel() {
-	const handleApply = () => {};
-	const handleReset = () => {};
+function FiltersPanel({ category }) {
+	const dispatch = useDispatch();
+	const { filters } = useSelector(selectFilters);
+
+	const handleApply = () => {
+		dispatch(fetchProductsWithParams({ category, ...filters }));
+	};
+	const handleReset = () => {
+		dispatch(resetFilters());
+		dispatch(fetchProductsWithParams({ category }));
+	};
 
 	return (
 		<div className={styles.container}>
@@ -22,7 +34,7 @@ function FiltersPanel() {
 				allowMultipleExpanded
 				allowZeroExpanded
 			>
-				{filters.map((filter) => (
+				{mainFilters.map((filter) => (
 					<AccordionItem key={filter.id} className={styles.accordionItem}>
 						<AccordionItemHeading>
 							<AccordionItemButton className={styles.accordionItemButton}>
@@ -44,5 +56,9 @@ function FiltersPanel() {
 		</div>
 	);
 }
+
+FiltersPanel.propTypes = {
+	category: PropTypes.string.isRequired,
+};
 
 export default FiltersPanel;

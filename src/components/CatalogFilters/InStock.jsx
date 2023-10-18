@@ -1,30 +1,33 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	selectFilters,
+	setInStock,
+	setToOrder,
+} from '../../store/filters/filters-slice';
 import Checkbox from '../UI/Checkbox/Checkbox';
 
 function InStock() {
-	const [checked, setChecked] = useState({
-		inStock: false,
-		toOrder: false,
-	});
+	const { filters } = useSelector(selectFilters);
+	const dispatch = useDispatch();
 
-	const handleInStock = (e) => {
-		setChecked((prev) => ({ ...prev, inStock: e.target.checked }));
+	const handleInStock = () => {
+		dispatch(setInStock());
 	};
 
-	const handleToOrder = (e) => {
-		setChecked((prev) => ({ ...prev, toOrder: e.target.checked }));
+	const handleToOrder = () => {
+		dispatch(setToOrder());
 	};
 
 	return (
 		<>
 			<Checkbox
 				onChange={handleInStock}
-				checked={checked.inStock}
+				checked={filters.in_stock === 'true'}
 				label="В наличии"
 			/>
 			<Checkbox
 				onChange={handleToOrder}
-				checked={checked.toOrder}
+				checked={filters.in_stock === 'false'}
 				label="На заказ"
 			/>
 		</>

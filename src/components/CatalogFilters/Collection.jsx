@@ -1,43 +1,40 @@
-import { useState } from 'react';
-import Checkbox from '../UI/Checkbox/Checkbox';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	fetchCollections,
+	selectFilters,
+	setCollection,
+} from '../../store/filters/filters-slice';
+import MultiSelect from '../UI/MultiSelect/MultiSelect';
 
 function Collection() {
-	const [checked, setChecked] = useState({
-		cozyOffice: false,
-		modernOffice: false,
-		singleOffice: false,
-	});
+	const { collections, filters } = useSelector(selectFilters);
+	const dispatch = useDispatch();
 
-	const handleCozyOffice = (e) => {
-		setChecked((prev) => ({ ...prev, cozyOffice: e.target.checked }));
-	};
+	useEffect(() => {
+		dispatch(fetchCollections());
+	}, [dispatch]);
 
-	const handleModernOffice = (e) => {
-		setChecked((prev) => ({ ...prev, modernOffice: e.target.checked }));
-	};
-
-	const handleSingleOffice = (e) => {
-		setChecked((prev) => ({ ...prev, singleOffice: e.target.checked }));
+	const handleChange = (choice) => {
+		dispatch(
+			setCollection(
+				choice
+					.map((el, i) => (i > 0 ? `collection=${el.value}` : `${el.value}`))
+					.join('&'),
+			),
+		);
 	};
 
 	return (
-		<>
-			<Checkbox
-				onChange={handleCozyOffice}
-				checked={checked.cozyOffice}
-				label="Cozy office"
-			/>
-			<Checkbox
-				onChange={handleModernOffice}
-				checked={checked.modernOffice}
-				label="Modern office"
-			/>
-			<Checkbox
-				onChange={handleSingleOffice}
-				checked={checked.singleOffice}
-				label="Single office"
-			/>
-		</>
+		<MultiSelect
+			placeholder="Выберите коллекции..."
+			onChange={handleChange}
+			reset={!filters.collection}
+			options={collections.map(({ slug, name }) => ({
+				value: slug,
+				label: name,
+			}))}
+		/>
 	);
 }
 

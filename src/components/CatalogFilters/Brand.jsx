@@ -1,25 +1,25 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	fetchColors,
+	fetchCollections,
 	selectFilters,
-	setColor,
+	setCollection,
 } from '../../store/filters/filters-slice';
 import MultiSelect from '../UI/MultiSelect/MultiSelect';
 
-function Colors() {
-	const { colors } = useSelector(selectFilters);
+function Brand() {
+	const { collections, filters } = useSelector(selectFilters);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(fetchColors());
+		dispatch(fetchCollections());
 	}, [dispatch]);
 
 	const handleChange = (choice) => {
 		dispatch(
-			setColor(
+			setCollection(
 				choice
-					.map((el, i) => (i > 0 ? `color=${el.value}` : `${el.value}`))
+					.map((el, i) => (i > 0 ? `collection=${el.value}` : `${el.value}`))
 					.join('&'),
 			),
 		);
@@ -27,11 +27,15 @@ function Colors() {
 
 	return (
 		<MultiSelect
-			placeholder="Выберите цвета..."
+			placeholder="Выберите коллекции..."
 			onChange={handleChange}
-			options={colors.map(({ id, name }) => ({ value: id, label: name }))}
+			reset={!filters.collection}
+			options={collections.map(({ slug, name }) => ({
+				value: slug,
+				label: name,
+			}))}
 		/>
 	);
 }
 
-export default Colors;
+export default Brand;

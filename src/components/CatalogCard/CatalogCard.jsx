@@ -25,7 +25,7 @@ function CatalogCard({
         <span>&nbsp;&#8381;</span>
       </span>
       <div className={styles.likeContainer}>
-        <Like ariaLabel="like" />
+        <Like onClick={() => {}} ariaLabel="like" />
       </div>
     </article>
   );

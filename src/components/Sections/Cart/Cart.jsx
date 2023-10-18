@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import styles from './CartSection.module.css';
-import TotalPrice from '../../../TotalPrice/TotalPrice';
-import Title from '../../../UI/Title/Title';
-import BlackButton from '../../../UI/BlackButton/BlackButton';
-import CartCard from '../../../CartCard/CartCard';
-import emptyCart from '../../../../assets/img/emptyCart.png';
-import { selectCart } from '../../../../store/cart/cart-slice';
-import { selectFavorites } from '../../../../store/favorites/favorites-slice';
+import styles from './Cart.module.css';
+import TotalPrice from '../../TotalPrice/TotalPrice';
+import Title from '../../UI/Title/Title';
+import BlackButton from '../../UI/BlackButton/BlackButton';
+import CartCard from '../../CartCard/CartCard';
+import emptyCart from '../../../assets/img/emptyCart.png';
+import { selectCart } from '../../../store/cart/cart-slice';
+import { selectFavorites } from '../../../store/favorites/favorites-slice';
 
-function CartSection() {
+function Cart() {
 	const { cart, loading } = useSelector(selectCart);
 	const { favorites } = useSelector(selectFavorites);
 
@@ -93,4 +93,4 @@ function CartSection() {
 	);
 }
 
-export default CartSection;
+export default Cart;

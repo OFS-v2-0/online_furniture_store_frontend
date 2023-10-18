@@ -1,30 +1,33 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	selectFilters,
+	setDelivery,
+	setPickup,
+} from '../../store/filters/filters-slice';
 import Checkbox from '../UI/Checkbox/Checkbox';
 
 function Delivery() {
-	const [checked, setChecked] = useState({
-		delivery: false,
-		pickup: false,
-	});
+	const { filters } = useSelector(selectFilters);
+	const dispatch = useDispatch();
 
-	const handleDelivery = (e) => {
-		setChecked((prev) => ({ ...prev, delivery: e.target.checked }));
+	const handleDelivery = () => {
+		dispatch(setDelivery());
 	};
 
-	const handlePickup = (e) => {
-		setChecked((prev) => ({ ...prev, pickup: e.target.checked }));
+	const handlePickup = () => {
+		dispatch(setPickup());
 	};
 
 	return (
 		<>
 			<Checkbox
-				onChange={handleDelivery}
-				checked={checked.delivery}
+				onChange={handlePickup}
+				checked={filters.fast_delivery === 'false'}
 				label="Самовывоз"
 			/>
 			<Checkbox
-				onChange={handlePickup}
-				checked={checked.pickup}
+				onChange={handleDelivery}
+				checked={filters.fast_delivery === 'true'}
 				label="Доставка"
 			/>
 		</>

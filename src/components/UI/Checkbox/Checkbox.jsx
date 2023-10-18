@@ -2,7 +2,7 @@ import { useId } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Checkbox.module.css';
 
-function Checkbox({ checked, onChange, disabled, label }) {
+function Checkbox({ checked, value, onChange, disabled, label }) {
 	const id = useId();
 	return (
 		<div className={styles.checkbox}>
@@ -11,6 +11,7 @@ function Checkbox({ checked, onChange, disabled, label }) {
 				id={`checkbox-${id}`}
 				onChange={onChange}
 				checked={checked}
+				value={value}
 				disabled={disabled}
 			/>
 			<label htmlFor={`checkbox-${id}`}>{label}</label>
@@ -20,6 +21,7 @@ function Checkbox({ checked, onChange, disabled, label }) {
 
 Checkbox.propTypes = {
 	checked: PropTypes.bool,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	onChange: PropTypes.func.isRequired,
 	label: PropTypes.string,
 	disabled: PropTypes.bool,

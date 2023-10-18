@@ -14,7 +14,7 @@ function Categories() {
 				<NavLink className={styles.link} to="/tables">
 					<CategoriesLinkCard title="Столы" img={tables} />
 				</NavLink>
-				<NavLink className={styles.link} to="/arm-chairs">
+				<NavLink className={styles.link} to="/chairs">
 					<CategoriesLinkCard title="Стулья" cardRound img={armchairs} />
 				</NavLink>
 				<NavLink className={styles.link} to="/wardrobes">

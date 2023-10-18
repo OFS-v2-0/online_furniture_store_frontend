@@ -22,6 +22,14 @@ export class Api {
 		}).then(this.#onResponse);
 	}
 
+	getProductsWithParams(params) {
+		return fetch(`${this.#baseurl}api/products/${params}`, {
+			headers: {
+				...this.#headers,
+			},
+		}).then(this.#onResponse);
+	}
+
 	getPopularProducts() {
 		return fetch(`${this.#baseurl}api/products/popular/`, {
 			headers: {
@@ -32,6 +40,22 @@ export class Api {
 
 	getCollections() {
 		return fetch(`${this.#baseurl}api/collections/`, {
+			headers: {
+				...this.#headers,
+			},
+		}).then(this.#onResponse);
+	}
+
+	getColors() {
+		return fetch(`${this.#baseurl}api/colors/`, {
+			headers: {
+				...this.#headers,
+			},
+		}).then(this.#onResponse);
+	}
+
+	getMaterials() {
+		return fetch(`${this.#baseurl}api/materials/`, {
 			headers: {
 				...this.#headers,
 			},

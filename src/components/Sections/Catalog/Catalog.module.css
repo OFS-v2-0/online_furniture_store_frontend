@@ -1,0 +1,9 @@
+.section {
+  max-width: 1240px;
+  margin: 4px auto 108px;
+}
+
+.container {
+  display: flex;
+  margin-top: 108px;
+}

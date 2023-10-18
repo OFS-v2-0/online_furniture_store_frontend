@@ -1,8 +1,12 @@
-import FiltersPanel from '../../components/FiltersPanel/FiltersPanel';
+// import { useLocation } from 'react-router-dom';
+import Catalog from '../../components/Sections/Catalog/Catalog';
 
 function CatalogPage() {
+	// const param = useLocation();
+	// console.log(param);
+
   return (
-			<FiltersPanel />
+			<Catalog />
 	);
 }
 

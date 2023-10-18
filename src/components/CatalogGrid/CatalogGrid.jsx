@@ -1,79 +1,44 @@
+import { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	clearProductsWithParams,
+	fetchProductsWithParams,
+	selectProducts,
+} from '../../store/products/products-slice';
 import styles from './CatalogGrid.module.css';
-import foto from '../../assets/img/blue-chair.png';
-import foto1 from '../../assets/img/armchair.png';
 import CatalogCard from '../CatalogCard/CatalogCard';
 
-const products = [
-	{
-		id: '1',
-		title: 'Кресло Modern office Gray',
-		img: `${foto}`,
-		price: '49 990',
-	},
-	{
-		id: '2',
-		title: 'Кресло Modern office Gray',
-		img: `${foto1}`,
-		price: '49 990',
-	},
-	{
-		id: '3',
-		title: 'Кресло Modern office Gray',
-		img: `${foto}`,
-		price: '49 990',
-	},
-	{
-		id: '4',
-		title: 'Кресло Modern office Gray',
-		img: `${foto1}`,
-		price: '49 990',
-	},
-	{
-		id: '5',
-		title: 'Кресло Modern office Gray',
-		img: `${foto}`,
-		price: '49 990',
-	},
-	{
-		id: '6',
-		title: 'Кресло Modern office Gray',
-		img: `${foto1}`,
-		price: '49 990',
-	},
-	{
-		id: '7',
-		title: 'Кресло Modern office Gray',
-		img: `${foto}`,
-		price: '49 990',
-	},
-	{
-		id: '8',
-		title: 'Кресло Modern office Gray',
-		img: `${foto1}`,
-		price: '49 990',
-	},
-	{
-		id: '9',
-		title: 'Кресло Modern office Gray',
-		img: `${foto1}`,
-		price: '49 990',
-	},
-];
+function CatalogGrid({ category }) {
+	const dispatch = useDispatch();
+	const { productsWithParams } = useSelector(selectProducts);
 
-function CatalogGrid() {
+	useEffect(() => {
+		dispatch(fetchProductsWithParams({ category }));
+
+		return () => {
+			dispatch(clearProductsWithParams());
+		};
+	}, [dispatch, category]);
+
 	return (
 		<div className={styles.catalog}>
-			{
-				products.map((product) => {
-					return <CatalogCard
+			{productsWithParams.map((product) => {
+				return (
+					<CatalogCard
 						key={product.id}
-						title={product.title}
-						img={product.img}
+						title={product.name}
+						img={product.images ? product.images.first_image : ''}
 						price={product.price}
-					/>;
-				})
-			}
+					/>
+				);
+			})}
 		</div>
 	);
 }
+
+CatalogGrid.propTypes = {
+	category: PropTypes.string.isRequired,
+};
+
 export default CatalogGrid;
