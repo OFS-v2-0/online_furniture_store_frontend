@@ -6,7 +6,7 @@ import { openModal } from '../../../store/modal/modal-slice';
 import user from '../../../assets/img/person.svg';
 import Logo from '../../UI/Logo/Logo';
 import SearchField from '../../UI/SearchField/SearchField';
-import SingleSelect from '../../UI/SingleSelect/SingleSelect';
+import SingleSelect from '../../UI/Select/SingleSelect';
 import Grocery from '../../UI/Grocery/Grocery';
 import HeartCounter from '../../UI/HeartCounter/HeartCounter';
 import styles from './Header.module.css';
@@ -113,7 +113,7 @@ function Header() {
 								<a href="tel: +74955555555" className={styles.phone}>
 									+7 (495) 555–55–55
 								</a>
-								<SingleSelect options={['Москва']} />
+								<SingleSelect options={[{ value: 'Москва', label: 'Москва' }]} />
 							</div>
 							<SearchField
 								onChange={handleChange}
@@ -236,7 +236,7 @@ function Header() {
 									type="button"
 									onClick={handleSearchInputShow}
 								/>
-								<SingleSelect options={['Москва']} />
+								<SingleSelect options={[{ value: 'Москва', label: 'Москва' }]} />
 							</div>
 						</div>
 					</div>

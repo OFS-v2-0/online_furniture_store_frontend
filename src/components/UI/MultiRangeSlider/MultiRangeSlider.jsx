@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef, memo } from 'react';
 import PropTypes from 'prop-types';
 import styles from './MultiRangeSlider.module.css';
 
@@ -205,4 +205,4 @@ MultiRangeSlider.propTypes = {
 	labelInput: PropTypes.string,
 };
 
-export default MultiRangeSlider;
+export default memo(MultiRangeSlider);

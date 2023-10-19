@@ -1,6 +1,6 @@
+import { useRef, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import { useRef, useEffect } from 'react';
 import { DropdownIndicator, multiSelectStyles } from './selectConfigs';
 
 function MultiSelect({ options, placeholder, onChange, reset }) {
@@ -43,4 +43,4 @@ MultiSelect.propTypes = {
 	reset: PropTypes.bool,
 };
 
-export default MultiSelect;
+export default memo(MultiSelect);

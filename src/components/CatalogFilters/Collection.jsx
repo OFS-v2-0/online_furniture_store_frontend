@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	fetchCollections,
 	selectFilters,
 	setCollection,
 } from '../../store/filters/filters-slice';
-import MultiSelect from '../UI/MultiSelect/MultiSelect';
+import MultiSelect from '../UI/Select/MultiSelect';
 
 function Collection() {
 	const { collections, filters } = useSelector(selectFilters);
@@ -15,7 +15,7 @@ function Collection() {
 		dispatch(fetchCollections());
 	}, [dispatch]);
 
-	const handleChange = (choice) => {
+	const handleChange = useCallback((choice) => {
 		dispatch(
 			setCollection(
 				choice
@@ -23,7 +23,7 @@ function Collection() {
 					.join('&'),
 			),
 		);
-	};
+	}, [dispatch]);
 
 	return (
 		<MultiSelect

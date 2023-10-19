@@ -70,6 +70,21 @@ const productSlice = createSlice({
 		clearProductsWithParams: (state) => {
 			state.productsWithParams = [];
 		},
+		sortProductsByPriceAsc: (state) => {
+			state.productsWithParams = state.productsWithParams.sort(
+				(a, b) => a.total_price - b.total_price,
+			);
+		},
+		sortProductsByPriceDesc: (state) => {
+			state.productsWithParams = state.productsWithParams.sort(
+				(a, b) => b.total_price - a.total_price,
+			);
+		},
+		sortProductsByDiscountDesc: (state) => {
+			state.productsWithParams = state.productsWithParams.sort(
+				(a, b) => b.discount - a.discount,
+			);
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -132,5 +147,10 @@ const productSlice = createSlice({
 });
 
 export const selectProducts = (state) => state[sliceName];
-export const { clearProductsWithParams } = productSlice.actions;
+export const {
+	clearProductsWithParams,
+	sortProductsByPriceAsc,
+	sortProductsByPriceDesc,
+	sortProductsByDiscountDesc,
+} = productSlice.actions;
 export default productSlice.reducer;

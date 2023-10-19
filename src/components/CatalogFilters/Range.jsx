@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import MultiRangeSlider from '../UI/MultiRangeSlider/MultiRangeSlider';
@@ -12,15 +13,23 @@ function Range({ type, minValue, maxValue, rangeBar, labelInput }) {
 	const dispatch = useDispatch();
 	const { filters } = useSelector(selectFilters);
 
-	const handleRange = ({ min, max }) => {
-		if (type === 'price') {
-			dispatch(setPrice({ min, max }));
-		} else if (type === 'weight') {
-			dispatch(setWeight({ min, max }));
-		} else if (type === 'warranty') {
-			dispatch(setWarranty({ min, max }));
-		}
-	};
+	const handleRange = useCallback(
+		({ min, max }) => {
+			switch (type) {
+				case 'price':
+					dispatch(setPrice({ min, max }));
+					break;
+				case 'weight':
+					dispatch(setWeight({ min, max }));
+					break;
+				case 'warranty':
+					dispatch(setWarranty({ min, max }));
+					break;
+				default:
+			}
+		},
+		[dispatch, type],
+	);
 
 	return (
 		<MultiRangeSlider
