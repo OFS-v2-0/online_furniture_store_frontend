@@ -8,7 +8,7 @@ import Collection from '../components/CatalogFilters/Collection';
 // import Warranty from '../components/CatalogFilters/Warranty';
 // import SpecialOffers from '../components/CatalogFilters/SpecialOffers';
 // import Colors from '../components/CatalogFilters/Colors';
-// import Material from '../components/CatalogFilters/Material';
+import Material from '../components/CatalogFilters/Material';
 
 export const mainFilters = [
 	{
@@ -61,9 +61,9 @@ export const mainFilters = [
 	// 	heading: 'Цвет',
 	// 	content: <Colors />,
 	// },
-	// {
-	// 	id: uuidv4(),
-	// 	heading: 'Материал',
-	// 	content: <Material />,
-	// },
+	{
+		id: uuidv4(),
+		heading: 'Материал',
+		content: <Material />,
+	},
 ];

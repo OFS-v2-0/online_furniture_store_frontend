@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MultiSelect from '../UI/MultiSelect/MultiSelect';
+import MultiSelect from '../UI/Select/MultiSelect';
 import {
 	fetchMaterials,
 	selectFilters,
@@ -19,7 +19,7 @@ function Material() {
 		dispatch(
 			setMaterial(
 				choice
-					.map((el, i) => (i > 0 ? `material=${el.value}` : `${el.value}`))
+					.map((el, i) => (i > 0 ? `material=${el.label}` : `${el.label}`))
 					.join('&'),
 			),
 		);
