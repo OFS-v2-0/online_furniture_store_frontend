@@ -46,6 +46,14 @@ export class Api {
 		}).then(this.#onResponse);
 	}
 
+	getBrands() {
+		return fetch(`${this.#baseurl}api/brand/`, {
+			headers: {
+				...this.#headers,
+			},
+		}).then(this.#onResponse);
+	}
+
 	getColors() {
 		return fetch(`${this.#baseurl}api/colors/`, {
 			headers: {

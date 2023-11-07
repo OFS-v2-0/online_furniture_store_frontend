@@ -1,25 +1,25 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	fetchCollections,
+	fetchBrands,
 	selectFilters,
-	setCollection,
+	setBrand,
 } from '../../store/filters/filters-slice';
-import MultiSelect from '../UI/MultiSelect/MultiSelect';
+import MultiSelect from '../UI/Select/MultiSelect';
 
 function Brand() {
-	const { collections, filters } = useSelector(selectFilters);
+	const { brands, filters } = useSelector(selectFilters);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(fetchCollections());
+		dispatch(fetchBrands());
 	}, [dispatch]);
 
 	const handleChange = (choice) => {
 		dispatch(
-			setCollection(
+			setBrand(
 				choice
-					.map((el, i) => (i > 0 ? `collection=${el.value}` : `${el.value}`))
+					.map((el, i) => (i > 0 ? `brand=${el.value}` : `${el.value}`))
 					.join('&'),
 			),
 		);
@@ -27,12 +27,12 @@ function Brand() {
 
 	return (
 		<MultiSelect
-			placeholder="Выберите коллекции..."
+			placeholder="Выберите бренды..."
 			onChange={handleChange}
 			reset={!filters.collection}
-			options={collections.map(({ slug, name }) => ({
-				value: slug,
-				label: name,
+			options={brands.map(({ brand }) => ({
+				value: brand,
+				label: brand,
 			}))}
 		/>
 	);

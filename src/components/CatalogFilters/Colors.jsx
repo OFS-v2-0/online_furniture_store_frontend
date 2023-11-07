@@ -5,7 +5,7 @@ import {
 	selectFilters,
 	setColor,
 } from '../../store/filters/filters-slice';
-import MultiSelect from '../UI/MultiSelect/MultiSelect';
+import MultiSelect from '../UI/Select/MultiSelect';
 
 function Colors() {
 	const { colors } = useSelector(selectFilters);
@@ -19,7 +19,7 @@ function Colors() {
 		dispatch(
 			setColor(
 				choice
-					.map((el, i) => (i > 0 ? `color=${el.value}` : `${el.value}`))
+					.map((el, i) => (i > 0 ? `color=${el.label}` : `${el.label}`))
 					.join('&'),
 			),
 		);

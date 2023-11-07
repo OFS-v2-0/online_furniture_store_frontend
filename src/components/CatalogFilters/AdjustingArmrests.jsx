@@ -1,38 +1,38 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	selectFilters,
+	setArmrestAdjustment,
+} from '../../store/filters/filters-slice';
 import Checkbox from '../UI/Checkbox/Checkbox';
 
 function AdjustingArmrests() {
-	const [checked, setChecked] = useState({
-		upDown: false,
-		upDownSideways: false,
-		no: false,
-	});
+	const { filters } = useSelector(selectFilters);
+	const dispatch = useDispatch();
 
-	const handleUpDown = (e) => {
-		setChecked((prev) => ({ ...prev, upDown: e.target.checked }));
-	};
-
-	const handleUpDownSideways = (e) => {
-		setChecked((prev) => ({ ...prev, upDownSideways: e.target.checked }));
-	};
-
-	const handleNo = (e) => {
-		setChecked((prev) => ({ ...prev, no: e.target.checked }));
+	const handleArmrestAdjustment = (e) => {
+		dispatch(setArmrestAdjustment(e.target.value));
 	};
 
 	return (
 		<>
 			<Checkbox
-				onChange={handleUpDown}
-				checked={checked.upDown}
+				onChange={handleArmrestAdjustment}
+				checked={filters.armrest_adjustment === 'Вверх / вниз'}
 				label="Вверх – вниз"
+				value="Вверх / вниз"
 			/>
 			<Checkbox
-				onChange={handleUpDownSideways}
-				checked={checked.upDownSideways}
+				onChange={handleArmrestAdjustment}
+				checked={filters.armrest_adjustment === 'Вверх / вниз / в стороны'}
 				label="Вверх – вниз – в стороны"
+				value="Вверх / вниз / в стороны"
 			/>
-			<Checkbox onChange={handleNo} checked={checked.no} label="Нет" />
+			<Checkbox
+				onChange={handleArmrestAdjustment}
+				checked={filters.armrest_adjustment === 'Нет'}
+				label="Нет"
+				value="Нет"
+			/>
 		</>
 	);
 }

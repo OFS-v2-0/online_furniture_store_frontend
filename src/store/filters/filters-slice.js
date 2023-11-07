@@ -7,6 +7,7 @@ const initialState = {
 	error: null,
 	colors: [],
 	collections: [],
+	brands: [],
 	materials: [],
 };
 
@@ -29,6 +30,18 @@ export const fetchCollections = createAsyncThunk(
 	async (_, { fulfillWithValue, rejectWithValue }) => {
 		try {
 			const data = await api.getCollections();
+			return fulfillWithValue([...data]);
+		} catch (err) {
+			return rejectWithValue(err);
+		}
+	},
+);
+
+export const fetchBrands = createAsyncThunk(
+	`${sliceName}/fetchBrands`,
+	async (_, { fulfillWithValue, rejectWithValue }) => {
+		try {
+			const data = await api.getBrands();
 			return fulfillWithValue([...data]);
 		} catch (err) {
 			return rejectWithValue(err);
@@ -66,8 +79,8 @@ const filtersSlice = createSlice({
 			state.filters.min_rating_unused = action.payload;
 		},
 		setWarranty: (state, action) => {
-				state.filters.warranty_min = action.payload.min;
-				state.filters.warranty_max = action.payload.max;
+			state.filters.warranty_min = action.payload.min;
+			state.filters.warranty_max = action.payload.max;
 		},
 		setInStock: (state) => {
 			if (state.filters.in_stock === 'true') {
@@ -95,8 +108,31 @@ const filtersSlice = createSlice({
 		setCollection: (state, action) => {
 			state.filters.collection = action.payload;
 		},
+		setBrand: (state, action) => {
+			state.filters.brand = action.payload;
+		},
 		setMaterial: (state, action) => {
 			state.filters.material = action.payload;
+		},
+		setSwingMechanism: (state, action) => {
+			if (state.filters.swing_mechanism === action.payload) {
+				state.filters.swing_mechanism = '';
+			} else state.filters.swing_mechanism = action.payload;
+		},
+		setArmrestAdjustment: (state, action) => {
+			if (state.filters.armrest_adjustment === action.payload) {
+				state.filters.armrest_adjustment = '';
+			} else state.filters.armrest_adjustment = action.payload;
+		},
+		setConstruction: (state, action) => {
+			if (state.filters.construction === action.payload) {
+				state.filters.construction = '';
+			} else state.filters.construction = action.payload;
+		},
+		setFurnitureType: (state, action) => {
+			if (state.filters.furniture_type === action.payload) {
+				state.filters.furniture_type = '';
+			} else state.filters.furniture_type = action.payload;
 		},
 
 		resetFilters: (state) => {
@@ -131,6 +167,19 @@ const filtersSlice = createSlice({
 				state.loading = false;
 			})
 
+			.addCase(fetchBrands.pending, (state) => {
+				state.loading = true;
+				state.error = null;
+			})
+			.addCase(fetchBrands.fulfilled, (state, action) => {
+				state.brands = action.payload;
+				state.loading = false;
+			})
+			.addCase(fetchBrands.rejected, (state, action) => {
+				state.error = action.payload;
+				state.loading = false;
+			})
+
 			.addCase(fetchMaterials.pending, (state) => {
 				state.loading = true;
 				state.error = null;
@@ -158,7 +207,12 @@ export const {
 	setPickup,
 	setColor,
 	setCollection,
+	setBrand,
 	setMaterial,
+	setSwingMechanism,
+	setArmrestAdjustment,
+	setConstruction,
+	setFurnitureType,
 
 	resetFilters,
 } = filtersSlice.actions;
