@@ -3,6 +3,7 @@ import api from '../../utils/api';
 
 const initialState = {
 	filters: {},
+	purpose: '',
 	loading: true,
 	error: null,
 	colors: [],
@@ -134,6 +135,11 @@ const filtersSlice = createSlice({
 				state.filters.furniture_type = '';
 			} else state.filters.furniture_type = action.payload;
 		},
+		setPurpose: (state, action) => {
+			if (state.purpose === action.payload) {
+				state.purpose = '';
+			} else state.purpose = action.payload;
+		},
 
 		resetFilters: (state) => {
 			state.filters = {};
@@ -213,6 +219,7 @@ export const {
 	setArmrestAdjustment,
 	setConstruction,
 	setFurnitureType,
+	setPurpose,
 
 	resetFilters,
 } = filtersSlice.actions;

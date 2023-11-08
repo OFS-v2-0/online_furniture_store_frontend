@@ -13,35 +13,38 @@ import styles from './CatalogGrid.module.css';
 import CatalogCard from '../CatalogCard/CatalogCard';
 import SingleSelect from '../UI/Select/SingleSelect';
 
-function CatalogGrid({ category }) {
+function CatalogGrid({ category, purpose }) {
 	const dispatch = useDispatch();
 	const { productsWithParams } = useSelector(selectProducts);
 
 	useEffect(() => {
-		dispatch(fetchProductsWithParams({ category }));
+		dispatch(fetchProductsWithParams({ category, purpose }));
 
 		return () => {
 			dispatch(clearProductsWithParams());
 		};
-	}, [dispatch, category]);
+	}, [dispatch, category, purpose]);
 
-	const handleSortChange = useCallback((choice) => {
-		switch (choice.value) {
-			case 'priceAsc':
-				dispatch(sortProductsByPriceAsc());
-				break;
-			case 'priceDesc':
-				dispatch(sortProductsByPriceDesc());
-				break;
-			case 'discountDesc':
-				dispatch(sortProductsByDiscountDesc());
-				break;
-			default:
-		}
-	}, [dispatch]);
+	const handleSortChange = useCallback(
+		(choice) => {
+			switch (choice.value) {
+				case 'priceAsc':
+					dispatch(sortProductsByPriceAsc());
+					break;
+				case 'priceDesc':
+					dispatch(sortProductsByPriceDesc());
+					break;
+				case 'discountDesc':
+					dispatch(sortProductsByDiscountDesc());
+					break;
+				default:
+			}
+		},
+		[dispatch],
+	);
 
 	return (
-		<div>
+		<div className={styles.container}>
 			<SingleSelect
 				onChange={handleSortChange}
 				options={[
@@ -68,6 +71,7 @@ function CatalogGrid({ category }) {
 
 CatalogGrid.propTypes = {
 	category: PropTypes.string.isRequired,
+	purpose: PropTypes.string.isRequired,
 };
 
 export default CatalogGrid;
