@@ -46,7 +46,10 @@ function CatalogGrid({ category, purpose }) {
 	return (
 		<div className={styles.container}>
 			<SingleSelect
+				key={category}
 				onChange={handleSortChange}
+				defaultValue=""
+				placeholder="Выберите сортировку..."
 				options={[
 					{ value: 'priceAsc', label: 'Сначала дешевле' },
 					{ value: 'priceDesc', label: 'Сначала дороже' },

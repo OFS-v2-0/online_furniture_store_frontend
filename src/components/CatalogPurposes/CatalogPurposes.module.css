@@ -1,0 +1,40 @@
+
+.purposes {
+  margin-top: 69px;
+	display: flex;
+	gap: 20px;
+}
+
+.purpose {
+	all: unset;
+	position: relative;
+	width: 295px;
+	height: 220px;
+	background-position: top;
+	background-repeat: no-repeat;
+	background-color: #f8f8f8;
+	cursor: pointer;
+	transition: background-color 0.3s ease-in-out;
+}
+
+.purpose:hover {
+	background-color: #f3f1f1;
+}
+
+.purpose::before {
+	content: attr(data-title);
+  width: max-content;
+	position: absolute;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	color: #000;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+.purpose:checked {
+  border: solid 1px var(--element-gray);
+}

@@ -19,11 +19,11 @@ function Option({ children, ...props }) {
 	);
 }
 
-function SingleSelect({ options, placeholder, onChange }) {
+function SingleSelect({ options, placeholder, defaultValue, onChange }) {
 	return (
 		<Select
 			closeMenuOnSelect={false}
-			defaultValue={options[0]}
+			defaultValue={defaultValue}
 			isSearchable={false}
 			placeholder={placeholder}
 			components={{ DropdownIndicator, Option }}
@@ -43,6 +43,14 @@ SingleSelect.propTypes = {
 		}),
 	).isRequired,
 	placeholder: PropTypes.string,
+	defaultValue: PropTypes.oneOfType([
+		PropTypes.shape({
+			value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+				.isRequired,
+			label: PropTypes.string.isRequired,
+		}).isRequired,
+		PropTypes.string.isRequired,
+	]),
 	onChange: PropTypes.func,
 };
 

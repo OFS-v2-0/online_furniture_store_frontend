@@ -113,7 +113,10 @@ function Header() {
 								<a href="tel: +74955555555" className={styles.phone}>
 									+7 (495) 555–55–55
 								</a>
-								<SingleSelect options={[{ value: 'Москва', label: 'Москва' }]} />
+								<SingleSelect
+									defaultValue={{ value: 'Москва', label: 'Москва' }}
+									options={[{ value: 'Москва', label: 'Москва' }]}
+								/>
 							</div>
 							<SearchField
 								onChange={handleChange}
@@ -236,7 +239,10 @@ function Header() {
 									type="button"
 									onClick={handleSearchInputShow}
 								/>
-								<SingleSelect options={[{ value: 'Москва', label: 'Москва' }]} />
+								<SingleSelect
+									defaultValue={{ value: 'Москва', label: 'Москва' }}
+									options={[{ value: 'Москва', label: 'Москва' }]}
+								/>
 							</div>
 						</div>
 					</div>

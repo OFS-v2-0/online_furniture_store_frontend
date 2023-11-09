@@ -143,6 +143,7 @@ const filtersSlice = createSlice({
 
 		resetFilters: (state) => {
 			state.filters = {};
+			state.purpose = '';
 		},
 	},
 	extraReducers: (builder) => {
