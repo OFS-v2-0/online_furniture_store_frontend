@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import placeholder from '../../assets/img/placeholder.png';
@@ -33,7 +33,7 @@ function ProductCard({
 	const dispatch = useDispatch();
 	const cardRef = useRef(null);
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		setCardWidth(cardRef.current.clientWidth);
 	}, [index]);
 
