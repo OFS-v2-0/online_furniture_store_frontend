@@ -47,19 +47,19 @@ function ProductCard({
 	};
 
 	const setCardStyles = () => {
-		if (catalogCard && cardWidth <= 300) {
+		if (catalogCard && cardWidth <= 350) {
 			return `${styles.card} ${styles.catalogCard} ${styles.small}`;
 		}
-		if (catalogCard && cardWidth > 300 && cardWidth < 800) {
+		if (catalogCard && cardWidth > 350 && cardWidth < 800) {
 			return `${styles.card} ${styles.catalogCard} ${styles.middle}`;
 		}
 		if (catalogCard && cardWidth >= 800) {
 			return `${styles.card} ${styles.catalogCard} ${styles.large}`;
 		}
-		if (cardWidth > 300 && !catalogCard) {
+		if (cardWidth > 350 && !catalogCard) {
 			return `${styles.card} ${styles.discountCard}`;
 		}
-		if (cardWidth < 300 && !catalogCard) {
+		if (cardWidth < 350 && !catalogCard) {
 			return `${styles.card} ${styles.fastDeliveryCard}`;
 		}
 	};
@@ -68,10 +68,10 @@ function ProductCard({
 		if (catalogCard && cardWidth >= 800) {
 			return `${styles.image} ${styles.imageCatalogCard} ${styles.large}`;
 		}
-		if (cardWidth > 300 && !catalogCard) {
+		if (cardWidth > 350 && !catalogCard) {
 			return `${styles.image} ${styles.imageDiscountCard}`;
 		}
-		if (cardWidth < 300 && !catalogCard) {
+		if (cardWidth < 350 && !catalogCard) {
 			return `${styles.image} ${styles.imageFastDeliveryCard}`;
 		}
 	};
