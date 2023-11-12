@@ -3,12 +3,11 @@
 	display: flex;
 	flex-direction: column;
 	gap: 29px;
+	width: 100%;
+	max-width: 820px;
 }
 
 .catalog {
-	width: 100%;
-	max-width: 820px;
-	height: 100%;
 	margin: 0 auto;
 	display: grid;
 	grid-gap: 60px 20px;
@@ -16,35 +15,58 @@
 	grid-auto-rows: 347px;
 }
 
-article:nth-child(9n + 1) {
+.cardContainer:nth-child(9n + 1) {
 	grid-column: auto / span 3;
 	grid-row: auto / span 1;
 }
 
-article:nth-child(9n + 2) {
+.cardContainer:nth-child(9n + 2) {
 	grid-column: auto / span 5;
 	grid-row: auto / span 1;
 }
-article:nth-child(9n + 3) {
+.cardContainer:nth-child(9n + 3) {
 	grid-column: auto / span 8;
 	grid-row: auto / span 1;
 }
-article:nth-child(9n + 4),
-article:nth-child(9n + 5),
-article:nth-child(9n + 6),
-article:nth-child(9n + 7) {
+.cardContainer:nth-child(9n + 4),
+.cardContainer:nth-child(9n + 5),
+.cardContainer:nth-child(9n + 6),
+.cardContainer:nth-child(9n + 7) {
 	grid-column: auto / span 4;
 	grid-row: auto / span 1;
 }
-article:nth-child(9n + 8) {
+.cardContainer:nth-child(9n + 8) {
 	grid-column: auto / span 5;
 	grid-row: auto / span 1;
 }
-article:nth-child(9n + 9) {
+.cardContainer:nth-child(9n + 9) {
 	grid-column: auto / span 3;
 	grid-row: auto / span 1;
 }
 
 .select {
 	margin-bottom: 29px;
+}
+
+.noProducts {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.noProducts__title {
+	margin: 0 0 8px 0;
+	color: #000;
+	font-size: 25px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+.noProducts__text {
+	margin: 0;
+	color: #000;
+	font-size: 25px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
 }

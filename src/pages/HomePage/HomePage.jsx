@@ -16,7 +16,7 @@ function HomePage() {
 			{discountProducts.length && <ProductsWithScroll icon="discount" />}
 			{popularProducts.length && <PopularProducts />}
 			<Services />
-			{fastDeliveryProducts.length && <ProductsWithScroll icon="delivery" isSmall />}
+			{fastDeliveryProducts.length && <ProductsWithScroll icon="delivery" />}
 		</>
 	);
 }

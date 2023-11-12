@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -10,12 +11,19 @@ import {
 	selectProducts,
 } from '../../store/products/products-slice';
 import styles from './CatalogGrid.module.css';
-import CatalogCard from '../CatalogCard/CatalogCard';
 import SingleSelect from '../UI/Select/SingleSelect';
+import ProductCard from '../ProductCard/ProductCard';
+import { checkAvailability } from '../../utils/helpers';
+import { selectFavorites } from '../../store/favorites/favorites-slice';
+import { selectCart } from '../../store/cart/cart-slice';
 
 function CatalogGrid({ category, purpose }) {
 	const dispatch = useDispatch();
-	const { productsWithParams } = useSelector(selectProducts);
+	const { productsWithParams, loading } = useSelector(selectProducts);
+	const { favorites } = useSelector(selectFavorites);
+	const { cart } = useSelector(selectCart);
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		dispatch(fetchProductsWithParams({ category, purpose }));
@@ -56,18 +64,50 @@ function CatalogGrid({ category, purpose }) {
 					{ value: 'discountDesc', label: 'По скидке' },
 				]}
 			/>
-			<div className={styles.catalog}>
-				{productsWithParams.map((product) => {
-					return (
-						<CatalogCard
-							key={product.id}
-							title={product.name}
-							img={product.images ? product.images.first_image : ''}
-							price={product.price}
-						/>
-					);
-				})}
-			</div>
+			{productsWithParams?.length ? (
+				<div className={styles.catalog}>
+					{productsWithParams.map((product, idx) => {
+						return (
+							<div key={product.id} className={styles.cardContainer}>
+								<ProductCard
+									index={idx}
+									title={product.name}
+									oldPrice={product.price.toLocaleString()}
+									newPrice={product.total_price.toLocaleString()}
+									discount={product.discount}
+									icon={product.discount ? 'discount' : ''}
+									weight={product.weight || 1}
+									brand={product.brand || 'не известно'}
+									country={product.country || 'не известно'}
+									img={product.images ? product.images.first_image : ''}
+									inStock={product.available_quantity}
+									inCart={checkAvailability(cart.products, product.id)}
+									inFavorites={checkAvailability(
+										favorites.products,
+										product.id,
+									)}
+									id={product.id}
+									catalogCard
+									onClick={() => {
+										navigate(`/product/${product.id}`);
+									}}
+								/>
+							</div>
+						);
+					})}
+				</div>
+			) : (
+				!loading && (
+					<div className={styles.noProducts}>
+						<h2 className={styles.noProducts__title}>
+							Таких товаров не нашлось
+						</h2>
+						<p className={styles.noProducts__text}>
+							Попробуйте изменить настройки фильтра
+						</p>
+					</div>
+				)
+			)}
 		</div>
 	);
 }
