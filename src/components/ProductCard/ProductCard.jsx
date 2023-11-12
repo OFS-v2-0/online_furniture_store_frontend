@@ -59,7 +59,7 @@ function ProductCard({
 		if (cardWidth > 300 && !catalogCard) {
 			return `${styles.card} ${styles.discountCard}`;
 		}
-		if (cardWidth < 300 && !catalogCard) {
+		if (cardWidth < 300 && !catalogCard && icon === 'delivery') {
 			return `${styles.card} ${styles.fastDeliveryCard}`;
 		}
 	};
@@ -71,7 +71,7 @@ function ProductCard({
 		if (cardWidth > 300 && !catalogCard) {
 			return `${styles.image} ${styles.imageDiscountCard}`;
 		}
-		if (cardWidth < 300 && !catalogCard) {
+		if (cardWidth < 300 && !catalogCard && icon === 'delivery') {
 			return `${styles.image} ${styles.imageFastDeliveryCard}`;
 		}
 	};
