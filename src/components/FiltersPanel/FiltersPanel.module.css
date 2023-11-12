@@ -1,7 +1,8 @@
 .container {
-	max-width: 323px;
+	width: 323px;
 	display: flex;
-	flex-direction: column;
+	flex-direction: column;	
+	height: fit-content;
 }
 
 .heading {
@@ -20,7 +21,6 @@
 .accordionItem {
 	border: none;
 	padding-bottom: 30px;
-	overflow: hidden;
 }
 
 .accordionItemPanel {
@@ -33,7 +33,12 @@
 	justify-content: space-between;
 	background-color: var(--main-white);
 	color: var(--main-black);
+	font-family: 'Open Sans';
 	font-size: 18px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+	align-items: center;
 	cursor: pointer;
 	padding: 0 0 14px 0;
 	width: 100%;
@@ -47,6 +52,7 @@
 	height: 10px;
 	width: 10px;
 	margin-right: 12px;
+	margin-left: 12px;
 	border-bottom: 2px solid var(--main-black);
 	border-right: 2px solid var(--main-black);
 	transform: rotate(-45deg);

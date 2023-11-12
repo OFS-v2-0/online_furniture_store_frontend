@@ -1,42 +1,27 @@
-import { useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { selectFilters, setWarranty } from '../../store/filters/filters-slice';
 import Checkbox from '../UI/Checkbox/Checkbox';
+import { declensionWordYear } from '../../utils/helpers';
 
 function Warranty() {
-	const [checked, setChecked] = useState({
-		twoYears: false,
-		threeYears: false,
-		fiveYears: false,
-	});
+	// const { filters } = useSelector(selectFilters);
+	// const dispatch = useDispatch();
 
-	const handleTwoYears = (e) => {
-		setChecked((prev) => ({ ...prev, twoYears: e.target.checked }));
-	};
-
-	const handleThreeYears = (e) => {
-		setChecked((prev) => ({ ...prev, threeYears: e.target.checked }));
-	};
-
-	const handleFiveYears = (e) => {
-		setChecked((prev) => ({ ...prev, fiveYears: e.target.checked }));
+	const handleChange = () => {
+		// dispatch(setWarranty(e.target.value));
 	};
 
 	return (
 		<>
-			<Checkbox
-				onChange={handleTwoYears}
-				checked={checked.twoYears}
-				label="2 года"
-			/>
-			<Checkbox
-				onChange={handleThreeYears}
-				checked={checked.threeYears}
-				label="3 года"
-			/>
-			<Checkbox
-				onChange={handleFiveYears}
-				checked={checked.fiveYears}
-				label="5 лет"
-			/>
+			{[2, 3, 5].map((el) => (
+				<Checkbox
+					key={el}
+					onChange={handleChange}
+					checked={false}
+					value={el}
+					label={declensionWordYear(el)}
+				/>
+			))}
 		</>
 	);
 }

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { encodeQueryString } from '../../utils/helpers';
 import api from '../../utils/api';
 
 const initialState = {
@@ -8,6 +9,7 @@ const initialState = {
 	popularProducts: [],
 	discountProducts: [],
 	fastDeliveryProducts: [],
+	productsWithParams: [],
 	collections: [],
 };
 
@@ -18,6 +20,18 @@ export const fetchProducts = createAsyncThunk(
 	async (_, { fulfillWithValue, rejectWithValue }) => {
 		try {
 			const data = await api.getAllProducts();
+			return fulfillWithValue([...data]);
+		} catch (err) {
+			return rejectWithValue(err);
+		}
+	},
+);
+
+export const fetchProductsWithParams = createAsyncThunk(
+	`${sliceName}/fetchProductsWithParams`,
+	async (params, { fulfillWithValue, rejectWithValue }) => {
+		try {
+			const data = await api.getProductsWithParams(encodeQueryString(params));
 			return fulfillWithValue([...data]);
 		} catch (err) {
 			return rejectWithValue(err);
@@ -52,7 +66,26 @@ export const fetchCollections = createAsyncThunk(
 const productSlice = createSlice({
 	name: sliceName,
 	initialState,
-	reducers: {},
+	reducers: {
+		clearProductsWithParams: (state) => {
+			state.productsWithParams = [];
+		},
+		sortProductsByPriceAsc: (state) => {
+			state.productsWithParams = state.productsWithParams.sort(
+				(a, b) => a.total_price - b.total_price,
+			);
+		},
+		sortProductsByPriceDesc: (state) => {
+			state.productsWithParams = state.productsWithParams.sort(
+				(a, b) => b.total_price - a.total_price,
+			);
+		},
+		sortProductsByDiscountDesc: (state) => {
+			state.productsWithParams = state.productsWithParams.sort(
+				(a, b) => b.discount - a.discount,
+			);
+		},
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchProducts.pending, (state) => {
@@ -68,6 +101,19 @@ const productSlice = createSlice({
 				state.loading = false;
 			})
 			.addCase(fetchProducts.rejected, (state, action) => {
+				state.error = action.payload;
+				state.loading = false;
+			})
+
+			.addCase(fetchProductsWithParams.pending, (state) => {
+				state.loading = true;
+				state.error = null;
+			})
+			.addCase(fetchProductsWithParams.fulfilled, (state, action) => {
+				state.productsWithParams = action.payload;
+				state.loading = false;
+			})
+			.addCase(fetchProductsWithParams.rejected, (state, action) => {
 				state.error = action.payload;
 				state.loading = false;
 			})
@@ -101,4 +147,10 @@ const productSlice = createSlice({
 });
 
 export const selectProducts = (state) => state[sliceName];
+export const {
+	clearProductsWithParams,
+	sortProductsByPriceAsc,
+	sortProductsByPriceDesc,
+	sortProductsByDiscountDesc,
+} = productSlice.actions;
 export default productSlice.reducer;

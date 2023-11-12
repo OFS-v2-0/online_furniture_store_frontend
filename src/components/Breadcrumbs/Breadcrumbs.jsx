@@ -9,7 +9,7 @@ const routes = [
 	{ path: '/user', breadcrumb: 'Личный кабинет' },
 	{ path: '/cart', breadcrumb: 'Корзина' },
 	{ path: '/chosen', breadcrumb: 'Избранное' },
-	{ path: '/arm-chairs', breadcrumb: 'Кресла и стулья' },
+	{ path: '/chairs', breadcrumb: 'Кресла и стулья' },
 	{ path: '/tables', breadcrumb: 'Столы' },
 	{ path: '/wardrobes', breadcrumb: 'Шкафы и системы хранения' },
 	{ path: '/sofas', breadcrumb: 'Диваны' },

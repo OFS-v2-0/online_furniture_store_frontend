@@ -29,8 +29,9 @@ function Favorites() {
 						<ProductCard
 							title={item.name}
 							oldPrice={item.price.toLocaleString()}
-							newPrice={item.price.toLocaleString()}
+							newPrice={item.total_price.toLocaleString()}
 							discount={item.discount}
+							icon={item.discount ? 'discount' : ''}
 							weight={item.weight || 1}
 							brand={item.brand || 'не известно'}
 							country={item.country || 'не известно'}
@@ -48,22 +49,24 @@ function Favorites() {
 				))}
 			</ul>
 		</section>
-	) : (!loading &&
-		<section className={`${styles.section} ${styles.emptyCartContainer}`}>
-			<div className={styles.emptyCartDescription}>
-				<Title titleText="Избранное" />
-				<p className={styles.emptyText}>В избранном пока нет товаров</p>
-				<BlackButton
-					onClick={() => navigate('/')}
-					buttonText="Перейти к покупкам"
+	) : (
+		!loading && (
+			<section className={`${styles.section} ${styles.emptyCartContainer}`}>
+				<div className={styles.emptyCartDescription}>
+					<Title titleText="Избранное" />
+					<p className={styles.emptyText}>В избранном пока нет товаров</p>
+					<BlackButton
+						onClick={() => navigate('/')}
+						buttonText="Перейти к покупкам"
+					/>
+				</div>
+				<img
+					className={styles.emptyCartImg}
+					src={emptyCart}
+					alt="пустое избранное"
 				/>
-			</div>
-			<img
-				className={styles.emptyCartImg}
-				src={emptyCart}
-				alt="пустое избранное"
-			/>
-		</section>
+			</section>
+		)
 	);
 }
 

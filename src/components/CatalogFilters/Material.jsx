@@ -1,49 +1,40 @@
-import { useState } from 'react';
-import Checkbox from '../UI/Checkbox/Checkbox';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import MultiSelect from '../UI/Select/MultiSelect';
+import {
+	fetchMaterials,
+	selectFilters,
+	setMaterial,
+} from '../../store/filters/filters-slice';
 
 function Material() {
-	const [checked, setChecked] = useState({
-		textile: false,
-		ecoLeather: false,
-		grid: false,
-		genuineLeather: false,
-	});
+	const { materials, filters } = useSelector(selectFilters);
+	const dispatch = useDispatch();
 
-	const handleTextile = (e) => {
-		setChecked((prev) => ({ ...prev, textile: e.target.checked }));
-	};
+	useEffect(() => {
+		dispatch(fetchMaterials());
+	}, [dispatch]);
 
-	const handleEcoLeather = (e) => {
-		setChecked((prev) => ({ ...prev, ecoLeather: e.target.checked }));
-	};
-
-	const handleGrid = (e) => {
-		setChecked((prev) => ({ ...prev, grid: e.target.checked }));
-	};
-
-	const handleGenuineLeather = (e) => {
-		setChecked((prev) => ({ ...prev, genuineLeather: e.target.checked }));
+	const handleChange = (choice) => {
+		dispatch(
+			setMaterial(
+				choice
+					.map((el, i) => (i > 0 ? `material=${el.label}` : `${el.label}`))
+					.join('&'),
+			),
+		);
 	};
 
 	return (
-		<>
-			<Checkbox
-				onChange={handleTextile}
-				checked={checked.textile}
-				label="Текстиль"
-			/>
-			<Checkbox
-				onChange={handleEcoLeather}
-				checked={checked.ecoLeather}
-				label="Экокожа"
-			/>
-			<Checkbox onChange={handleGrid} checked={checked.grid} label="Сетка" />
-			<Checkbox
-				onChange={handleGenuineLeather}
-				checked={checked.genuineLeather}
-				label="Натуральная кожа"
-			/>
-		</>
+		<MultiSelect
+			placeholder="Выберите материал..."
+			onChange={handleChange}
+			reset={!filters.material}
+			options={materials.map(({ id, name }) => ({
+				value: id,
+				label: name,
+			}))}
+		/>
 	);
 }
 

@@ -1,25 +1,25 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	fetchColors,
+	fetchBrands,
 	selectFilters,
-	setColor,
+	setBrand,
 } from '../../store/filters/filters-slice';
 import MultiSelect from '../UI/Select/MultiSelect';
 
-function Colors() {
-	const { colors } = useSelector(selectFilters);
+function Brand() {
+	const { brands, filters } = useSelector(selectFilters);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(fetchColors());
+		dispatch(fetchBrands());
 	}, [dispatch]);
 
 	const handleChange = (choice) => {
 		dispatch(
-			setColor(
+			setBrand(
 				choice
-					.map((el, i) => (i > 0 ? `color=${el.label}` : `${el.label}`))
+					.map((el, i) => (i > 0 ? `brand=${el.value}` : `${el.value}`))
 					.join('&'),
 			),
 		);
@@ -27,11 +27,15 @@ function Colors() {
 
 	return (
 		<MultiSelect
-			placeholder="Выберите цвета..."
+			placeholder="Выберите бренды..."
 			onChange={handleChange}
-			options={colors.map(({ id, name }) => ({ value: id, label: name }))}
+			reset={!filters.collection}
+			options={brands.map(({ brand }) => ({
+				value: brand,
+				label: brand,
+			}))}
 		/>
 	);
 }
 
-export default Colors;
+export default Brand;

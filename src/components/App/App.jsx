@@ -59,10 +59,10 @@ function App() {
 						<Route path="/chosen" element={<PageInDevelopment />} />
 						<Route path="/cart" element={<CartPage />} />
 						<Route path="/product/:id" element={<ProductPage />} />
-						<Route path="/arm-chairs" element={<PageInDevelopment />} />
+						<Route path="/chairs" element={<CatalogPage />} />
 						<Route path="/tables" element={<CatalogPage />} />
-						<Route path="/wardrobes" element={<PageInDevelopment />} />
-						<Route path="/sofas" element={<PageInDevelopment />} />
+						<Route path="/wardrobes" element={<CatalogPage />} />
+						<Route path="/sofas" element={<CatalogPage />} />
 						<Route path="/sale" element={<PageInDevelopment />} />
 						<Route path="/rules-sale" element={<TradingRules />} />
 						<Route path="/under-construction" element={<PageInDevelopment />} />

@@ -15,7 +15,7 @@ import { selectCart } from '../../../../store/cart/cart-slice';
 import { selectFavorites } from '../../../../store/favorites/favorites-slice';
 import { checkAvailability } from '../../../../utils/helpers';
 
-function ProductsWithScroll({ icon, isSmall, sameProduct }) {
+function ProductsWithScroll({ icon, sameProduct }) {
 	const navigate = useNavigate();
 
 	const { discountProducts, fastDeliveryProducts } =
@@ -68,14 +68,12 @@ function ProductsWithScroll({ icon, isSmall, sameProduct }) {
 							weight={item.weight}
 							brand={item.brand}
 							country={item.country}
-							icon={icon}
+							icon={item.discount && !item.fast_delivery ? 'discount' : '' || icon}
 							inCart={checkAvailability(cart.products, item.id)}
 							inFavorites={checkAvailability(favorites.products, item.id)}
-							isSmall={isSmall}
 							onClick={() => {
 								navigate(`/product/${item.id}`);
 							}}
-							sameProduct={sameProduct}
 						/>
 					</SwiperSlide>
 				))}
@@ -86,7 +84,6 @@ function ProductsWithScroll({ icon, isSmall, sameProduct }) {
 
 ProductsWithScroll.propTypes = {
 	fastDelivery: PropTypes.bool,
-	isSmall: PropTypes.bool,
 	sameProduct: PropTypes.bool,
 	icon: PropTypes.string,
 };

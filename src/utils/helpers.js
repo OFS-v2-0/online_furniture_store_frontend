@@ -13,3 +13,11 @@ export function checkAvailability(products, id) {
 		elem.product ? elem.product.id === +id : elem.id === +id,
 	);
 }
+
+export function encodeQueryString(params) {
+	const query = Object.entries(params)
+		.filter(([, value]) => value)
+		.map(([key, value]) => `${key}=${value}`)
+		.join('&');
+	return query ? `?${query}` : '';
+}

@@ -6,7 +6,7 @@ import { openModal } from '../../../store/modal/modal-slice';
 import user from '../../../assets/img/person.svg';
 import Logo from '../../UI/Logo/Logo';
 import SearchField from '../../UI/SearchField/SearchField';
-import SelectCity from '../../UI/SelectCity/SelectCity';
+import SingleSelect from '../../UI/Select/SingleSelect';
 import Grocery from '../../UI/Grocery/Grocery';
 import HeartCounter from '../../UI/HeartCounter/HeartCounter';
 import styles from './Header.module.css';
@@ -53,6 +53,10 @@ function Header() {
 		<header>
 			{location.pathname === '/' ||
 			location.pathname === '/favorites' ||
+			location.pathname === '/tables' ||
+			location.pathname === '/chairs' ||
+			location.pathname === '/wardrobes' ||
+			location.pathname === '/sofas' ||
 			location.pathname.includes('/product/') ||
 			location.pathname.includes('/user/') ? (
 				<div className={styles.header}>
@@ -109,7 +113,10 @@ function Header() {
 								<a href="tel: +74955555555" className={styles.phone}>
 									+7 (495) 555–55–55
 								</a>
-								<SelectCity />
+								<SingleSelect
+									defaultValue={{ value: 'Москва', label: 'Москва' }}
+									options={[{ value: 'Москва', label: 'Москва' }]}
+								/>
 							</div>
 							<SearchField
 								onChange={handleChange}
@@ -159,11 +166,9 @@ function Header() {
 						<div className={styles.categories__container}>
 							<nav className={styles.categories__list}>
 								<NavLink
-									to="/arm-chairs"
+									to="/chairs"
 									className={
-										location.pathname === '/' ||
-										location.pathname === '/about' ||
-										location.pathname === '/arm-chairs'
+										location.pathname === '/chairs'
 											? styles.categories__item_active
 											: styles.categories__item
 									}
@@ -200,7 +205,7 @@ function Header() {
 								>
 									Диваны
 								</NavLink>
-								<NavLink
+								{/* <NavLink
 									to="/sale"
 									className={
 										location.pathname === '/sale'
@@ -209,7 +214,7 @@ function Header() {
 									}
 								>
 									Sale
-								</NavLink>
+								</NavLink> */}
 							</nav>
 						</div>
 					</div>
@@ -234,7 +239,10 @@ function Header() {
 									type="button"
 									onClick={handleSearchInputShow}
 								/>
-								<SelectCity />
+								<SingleSelect
+									defaultValue={{ value: 'Москва', label: 'Москва' }}
+									options={[{ value: 'Москва', label: 'Москва' }]}
+								/>
 							</div>
 						</div>
 					</div>

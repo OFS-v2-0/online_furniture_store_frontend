@@ -1,10 +1,10 @@
-import CartSection from '../../components/Sections/Cart/CartSection/CartSection';
+import Cart from '../../components/Sections/Cart/Cart';
 import PopularProducts from '../../components/Sections/PopularProducts/PopularProducts';
 
 function CartPage() {
 	return (
 		<>
-			<CartSection />
+			<Cart />
 			<PopularProducts />
 		</>
 	);

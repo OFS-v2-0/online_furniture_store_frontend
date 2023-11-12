@@ -1,41 +1,46 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	selectFilters,
+	setMinRaiting,
+} from '../../store/filters/filters-slice';
 import StarChecbox from '../UI/StarChecbox/StarChecbox';
 
 function Raiting() {
-	const [raiting, setRaiting] = useState(0);
+	const { filters } = useSelector(selectFilters);
+	const dispatch = useDispatch();
 
 	const handleChangeRaiting = (e) => {
-		if (+e.target.value === 1 && raiting === 1) {
-			setRaiting(0);
+		if (+e.target.value === 1 && filters?.min_rating_unused === 1) {
+			dispatch(setMinRaiting(0));
 			return;
 		}
-		setRaiting(+e.target.value);
+		dispatch(setMinRaiting(+e.target.value));
 	};
 
 	return (
 		<div style={{ display: 'flex', gap: '8px' }}>
 			<StarChecbox
-				checked={raiting >= 1}
+				checked={filters?.min_rating_unused >= 1}
 				onChange={handleChangeRaiting}
 				value={1}
 			/>
 			<StarChecbox
-				checked={raiting >= 2}
+				checked={filters?.min_rating_unused >= 2}
 				onChange={handleChangeRaiting}
 				value={2}
 			/>
 			<StarChecbox
-				checked={raiting >= 3}
+				checked={filters?.min_rating_unused >= 3}
 				onChange={handleChangeRaiting}
 				value={3}
 			/>
 			<StarChecbox
-				checked={raiting >= 4}
+				checked={filters?.min_rating_unused >= 4}
 				onChange={handleChangeRaiting}
 				value={4}
 			/>
 			<StarChecbox
-				checked={raiting >= 5}
+				checked={filters?.min_rating_unused >= 5}
 				onChange={handleChangeRaiting}
 				value={5}
 			/>

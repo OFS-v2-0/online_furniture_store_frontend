@@ -1,9 +1,7 @@
-import FiltersPanel from '../../components/FiltersPanel/FiltersPanel';
+import Catalog from '../../components/Sections/Catalog/Catalog';
 
 function CatalogPage() {
-  return (
-			<FiltersPanel />
-	);
+	return <Catalog />;
 }
 
 export default CatalogPage;

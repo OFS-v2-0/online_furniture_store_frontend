@@ -1,79 +1,120 @@
+import { useCallback, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	clearProductsWithParams,
+	sortProductsByPriceAsc,
+	sortProductsByPriceDesc,
+	sortProductsByDiscountDesc,
+	fetchProductsWithParams,
+	selectProducts,
+} from '../../store/products/products-slice';
 import styles from './CatalogGrid.module.css';
-import foto from '../../assets/img/blue-chair.png';
-import foto1 from '../../assets/img/armchair.png';
-import CatalogCard from '../CatalogCard/CatalogCard';
+import SingleSelect from '../UI/Select/SingleSelect';
+import ProductCard from '../ProductCard/ProductCard';
+import { checkAvailability } from '../../utils/helpers';
+import { selectFavorites } from '../../store/favorites/favorites-slice';
+import { selectCart } from '../../store/cart/cart-slice';
 
-const products = [
-	{
-		id: '1',
-		title: 'Кресло Modern office Gray',
-		img: `${foto}`,
-		price: '49 990',
-	},
-	{
-		id: '2',
-		title: 'Кресло Modern office Gray',
-		img: `${foto1}`,
-		price: '49 990',
-	},
-	{
-		id: '3',
-		title: 'Кресло Modern office Gray',
-		img: `${foto}`,
-		price: '49 990',
-	},
-	{
-		id: '4',
-		title: 'Кресло Modern office Gray',
-		img: `${foto1}`,
-		price: '49 990',
-	},
-	{
-		id: '5',
-		title: 'Кресло Modern office Gray',
-		img: `${foto}`,
-		price: '49 990',
-	},
-	{
-		id: '6',
-		title: 'Кресло Modern office Gray',
-		img: `${foto1}`,
-		price: '49 990',
-	},
-	{
-		id: '7',
-		title: 'Кресло Modern office Gray',
-		img: `${foto}`,
-		price: '49 990',
-	},
-	{
-		id: '8',
-		title: 'Кресло Modern office Gray',
-		img: `${foto1}`,
-		price: '49 990',
-	},
-	{
-		id: '9',
-		title: 'Кресло Modern office Gray',
-		img: `${foto1}`,
-		price: '49 990',
-	},
-];
+function CatalogGrid({ category, purpose }) {
+	const dispatch = useDispatch();
+	const { productsWithParams, loading } = useSelector(selectProducts);
+	const { favorites } = useSelector(selectFavorites);
+	const { cart } = useSelector(selectCart);
 
-function CatalogGrid() {
-	return (
-		<div className={styles.catalog}>
-			{
-				products.map((product) => {
-					return <CatalogCard
-						key={product.id}
-						title={product.title}
-						img={product.img}
-						price={product.price}
-					/>;
-				})
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		dispatch(fetchProductsWithParams({ category, purpose }));
+
+		return () => {
+			dispatch(clearProductsWithParams());
+		};
+	}, [dispatch, category, purpose]);
+
+	const handleSortChange = useCallback(
+		(choice) => {
+			switch (choice.value) {
+				case 'priceAsc':
+					dispatch(sortProductsByPriceAsc());
+					break;
+				case 'priceDesc':
+					dispatch(sortProductsByPriceDesc());
+					break;
+				case 'discountDesc':
+					dispatch(sortProductsByDiscountDesc());
+					break;
+				default:
 			}
+		},
+		[dispatch],
+	);
+
+	return (
+		<div className={styles.container}>
+			<SingleSelect
+				key={category}
+				onChange={handleSortChange}
+				defaultValue=""
+				placeholder="Выберите сортировку..."
+				options={[
+					{ value: 'priceAsc', label: 'Сначала дешевле' },
+					{ value: 'priceDesc', label: 'Сначала дороже' },
+					{ value: 'discountDesc', label: 'По скидке' },
+				]}
+			/>
+			{productsWithParams?.length ? (
+				<div className={styles.catalog}>
+					{productsWithParams.map((product, idx) => {
+						return (
+							<div key={product.id} className={styles.cardContainer}>
+								<ProductCard
+									index={idx}
+									title={product.name}
+									oldPrice={product.price.toLocaleString()}
+									newPrice={product.total_price.toLocaleString()}
+									discount={product.discount}
+									icon={product.discount ? 'discount' : ''}
+									weight={product.weight || 1}
+									brand={product.brand || 'не известно'}
+									country={product.country || 'не известно'}
+									img={product.images ? product.images.first_image : ''}
+									inStock={product.available_quantity}
+									inCart={checkAvailability(cart.products, product.id)}
+									inFavorites={checkAvailability(
+										favorites.products,
+										product.id,
+									)}
+									id={product.id}
+									catalogCard
+									onClick={() => {
+										navigate(`/product/${product.id}`);
+									}}
+								/>
+							</div>
+						);
+					})}
+				</div>
+			) : (
+				!loading && (
+					<div className={styles.noProducts}>
+						<h2 className={styles.noProducts__title}>
+							Таких товаров не нашлось
+						</h2>
+						<p className={styles.noProducts__text}>
+							Попробуйте изменить настройки фильтра
+						</p>
+					</div>
+				)
+			)}
 		</div>
 	);
 }
+
+CatalogGrid.propTypes = {
+	category: PropTypes.string.isRequired,
+	purpose: PropTypes.string.isRequired,
+};
+
 export default CatalogGrid;

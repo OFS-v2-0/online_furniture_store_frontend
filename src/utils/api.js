@@ -22,6 +22,14 @@ export class Api {
 		}).then(this.#onResponse);
 	}
 
+	getProductsWithParams(params) {
+		return fetch(`${this.#baseurl}api/products/${params}`, {
+			headers: {
+				...this.#headers,
+			},
+		}).then(this.#onResponse);
+	}
+
 	getPopularProducts() {
 		return fetch(`${this.#baseurl}api/products/popular/`, {
 			headers: {
@@ -38,22 +46,54 @@ export class Api {
 		}).then(this.#onResponse);
 	}
 
-	getCart() {
-		return fetch(`${this.#baseurl}api/carts/items/`, {
-			method: 'GET',
-			credentials: 'include',
+	getBrands() {
+		return fetch(`${this.#baseurl}api/brand/`, {
 			headers: {
 				...this.#headers,
 			},
 		}).then(this.#onResponse);
 	}
 
+	getColors() {
+		return fetch(`${this.#baseurl}api/colors/`, {
+			headers: {
+				...this.#headers,
+			},
+		}).then(this.#onResponse);
+	}
+
+	getMaterials() {
+		return fetch(`${this.#baseurl}api/materials/`, {
+			headers: {
+				...this.#headers,
+			},
+		}).then(this.#onResponse);
+	}
+
+	getCart() {
+		const token = getLocalData('access')
+			? `${getLocalData('access')}`
+			: '';
+		return fetch(`${this.#baseurl}api/carts/items/`, {
+			method: 'GET',
+			credentials: 'include',
+			headers: {
+				...this.#headers,
+				authorization: token,
+			},
+		}).then(this.#onResponse);
+	}
+
 	addToCart(product, quantity) {
+		const token = getLocalData('access')
+			? `${getLocalData('access')}`
+			: '';
 		return fetch(`${this.#baseurl}api/carts/add_item/`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
 				...this.#headers,
+				authorization: token,
 			},
 			body: JSON.stringify({
 				product,
@@ -63,31 +103,43 @@ export class Api {
 	}
 
 	deleteFromCart(id) {
+		const token = getLocalData('access')
+			? `${getLocalData('access')}`
+			: '';
 		return fetch(`${this.#baseurl}api/carts/delete_item/${id}/`, {
 			method: 'DELETE',
 			credentials: 'include',
 			headers: {
 				...this.#headers,
+				authorization: token,
 			},
 		}).then(this.#onResponse);
 	}
 
 	getFavorites() {
+		const token = getLocalData('access')
+			? `${getLocalData('access')}`
+			: '';
 		return fetch(`${this.#baseurl}api/favorites/list/`, {
 			method: 'GET',
 			credentials: 'include',
 			headers: {
 				...this.#headers,
+				authorization: token,
 			},
 		}).then(this.#onResponse);
 	}
 
 	addToFavorites(product) {
+		const token = getLocalData('access')
+			? `${getLocalData('access')}`
+			: '';
 		return fetch(`${this.#baseurl}api/favorites/add_favorite/`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
 				...this.#headers,
+				authorization: token,
 			},
 			body: JSON.stringify({
 				product,
@@ -96,11 +148,15 @@ export class Api {
 	}
 
 	deleteFromFavorites(id) {
+		const token = getLocalData('access')
+			? `${getLocalData('access')}`
+			: '';
 		return fetch(`${this.#baseurl}api/favorites/delete_favorite/${id}/`, {
 			method: 'DELETE',
 			credentials: 'include',
 			headers: {
 				...this.#headers,
+				authorization: token,
 			},
 		}).then(this.#onResponse);
 	}
