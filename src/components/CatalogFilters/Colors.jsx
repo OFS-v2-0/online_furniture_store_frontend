@@ -8,7 +8,7 @@ import {
 import MultiSelect from '../UI/Select/MultiSelect';
 
 function Colors() {
-	const { colors } = useSelector(selectFilters);
+	const { colors, filters } = useSelector(selectFilters);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -28,6 +28,7 @@ function Colors() {
 	return (
 		<MultiSelect
 			placeholder="Выберите цвета..."
+			reset={!filters.color}
 			onChange={handleChange}
 			options={colors.map(({ id, name }) => ({ value: id, label: name }))}
 		/>

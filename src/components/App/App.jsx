@@ -17,14 +17,15 @@ import { getFavorites } from '../../store/favorites/favorites-slice';
 import { closeModal, selectModal } from '../../store/modal/modal-slice';
 import {
 	fetchCollections,
+	fetchDiscountProducts,
+	fetchFastDeliveryProducts,
 	fetchPopularProducts,
-	fetchProducts,
 } from '../../store/products/products-slice';
 import ProtectedRoute from '../Hoc/ProtectedRoute/ProtectedRoute';
 
 import ProductPage from '../../pages/ProductPage/ProductPage';
 import CatalogPage from '../../pages/CatalogPage/CatalogPage';
-import { updateToken } from '../../store/auth/auth-slice';
+import { selectAuth, updateToken } from '../../store/auth/auth-slice';
 import { fetchUser } from '../../store/user/user-slice';
 import { modals } from '../../utils/modals';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
@@ -37,15 +38,20 @@ import styles from './App.module.css';
 function App() {
 	const dispatch = useDispatch();
 	const { modalOpen, currentModal } = useSelector(selectModal);
+	const { isAuth } = useSelector(selectAuth);
 	useEffect(() => {
-		dispatch(fetchProducts());
+		dispatch(fetchDiscountProducts());
+		dispatch(fetchFastDeliveryProducts());
 		dispatch(fetchPopularProducts());
 		dispatch(fetchCollections());
-		dispatch(getCart());
-		dispatch(getFavorites());
 		dispatch(updateToken());
 		dispatch(fetchUser());
 	}, [dispatch]);
+
+	useEffect(() => {
+		dispatch(getCart());
+		dispatch(getFavorites());
+	}, [dispatch, isAuth]);
 
 	return (
 		<div className={styles.app}>

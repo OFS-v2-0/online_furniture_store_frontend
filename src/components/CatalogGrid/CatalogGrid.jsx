@@ -54,7 +54,7 @@ function CatalogGrid({ category, purpose }) {
 	return (
 		<div className={styles.container}>
 			<SingleSelect
-				key={category}
+				key={loading}
 				onChange={handleSortChange}
 				defaultValue=""
 				placeholder="Выберите сортировку..."

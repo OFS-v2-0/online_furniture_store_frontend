@@ -51,6 +51,30 @@ export const fetchPopularProducts = createAsyncThunk(
 	},
 );
 
+export const fetchDiscountProducts = createAsyncThunk(
+	`${sliceName}/fetchDiscountProducts`,
+	async (_, { fulfillWithValue, rejectWithValue }) => {
+		try {
+			const data = await api.getDiscountProducts();
+			return fulfillWithValue([...data]);
+		} catch (err) {
+			return rejectWithValue(err);
+		}
+	},
+);
+
+export const fetchFastDeliveryProducts = createAsyncThunk(
+	`${sliceName}/fetchFastDeliveryProducts`,
+	async (_, { fulfillWithValue, rejectWithValue }) => {
+		try {
+			const data = await api.getFastDeliveryProducts();
+			return fulfillWithValue([...data]);
+		} catch (err) {
+			return rejectWithValue(err);
+		}
+	},
+);
+
 export const fetchCollections = createAsyncThunk(
 	`${sliceName}/fetchCollections`,
 	async (_, { fulfillWithValue, rejectWithValue }) => {
@@ -94,10 +118,6 @@ const productSlice = createSlice({
 			})
 			.addCase(fetchProducts.fulfilled, (state, action) => {
 				state.allProducts = action.payload;
-				state.discountProducts = action.payload.filter((item) => item.discount);
-				state.fastDeliveryProducts = action.payload.filter(
-					(item) => item.fast_delivery,
-				);
 				state.loading = false;
 			})
 			.addCase(fetchProducts.rejected, (state, action) => {
@@ -127,6 +147,32 @@ const productSlice = createSlice({
 				state.loading = false;
 			})
 			.addCase(fetchPopularProducts.rejected, (state, action) => {
+				state.error = action.payload;
+				state.loading = false;
+			})
+
+			.addCase(fetchDiscountProducts.pending, (state) => {
+				state.loading = true;
+				state.error = null;
+			})
+			.addCase(fetchDiscountProducts.fulfilled, (state, action) => {
+				state.discountProducts = action.payload;
+				state.loading = false;
+			})
+			.addCase(fetchDiscountProducts.rejected, (state, action) => {
+				state.error = action.payload;
+				state.loading = false;
+			})
+
+			.addCase(fetchFastDeliveryProducts.pending, (state) => {
+				state.loading = true;
+				state.error = null;
+			})
+			.addCase(fetchFastDeliveryProducts.fulfilled, (state, action) => {
+				state.fastDeliveryProducts = action.payload;
+				state.loading = false;
+			})
+			.addCase(fetchFastDeliveryProducts.rejected, (state, action) => {
 				state.error = action.payload;
 				state.loading = false;
 			})
