@@ -87,7 +87,7 @@
 	animation: 0.2s ease-in-out 0.5s descriptionAnimation;
 }
 
-.catalogCard:not(:hover).large .image {
+.catalogCard:not(:hover).large.animation .image {
 	animation: 0.5s ease-in-out 0s imageAnimationBack;
 }
 

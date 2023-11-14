@@ -30,12 +30,24 @@ function ProductCard({
 	index,
 }) {
 	const [cardWidth, setCardWidth] = useState(0);
+	const [animation, setAnimation] = useState(false);
 	const dispatch = useDispatch();
 	const cardRef = useRef(null);
 
 	useEffect(() => {
 		setCardWidth(cardRef.current.clientWidth);
 	}, [index]);
+
+	useEffect(() => {
+		const card = cardRef.current;
+		const onChange = () => setAnimation(true);
+
+		card.addEventListener('mouseenter', onChange);
+
+		return () => {
+			card.removeEventListener('mouseenter', onChange);
+		};
+	}, []);
 
 	const onLikeClick = () => {
 		if (inFavorites) {
@@ -54,7 +66,9 @@ function ProductCard({
 			return `${styles.card} ${styles.catalogCard} ${styles.middle}`;
 		}
 		if (catalogCard && cardWidth >= 800) {
-			return `${styles.card} ${styles.catalogCard} ${styles.large}`;
+			return animation
+				? `${styles.card} ${styles.catalogCard} ${styles.large} ${styles.animation}`
+				: `${styles.card} ${styles.catalogCard} ${styles.large}`;
 		}
 		if (cardWidth > 350 && !catalogCard) {
 			return `${styles.card} ${styles.discountCard}`;

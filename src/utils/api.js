@@ -92,7 +92,6 @@ export class Api {
 			credentials: 'include',
 			headers: {
 				...this.#headers,
-				// authorization: `Bearer ${getLocalData('access')}`,
 			},
 		}).then(this.#onResponse);
 	}
@@ -103,7 +102,6 @@ export class Api {
 			credentials: 'include',
 			headers: {
 				...this.#headers,
-				// authorization: `Bearer ${getLocalData('access')}`,
 			},
 			body: JSON.stringify({
 				product,
@@ -118,7 +116,40 @@ export class Api {
 			credentials: 'include',
 			headers: {
 				...this.#headers,
-				// authorization: `Bearer ${getLocalData('access')}`,
+			},
+		}).then(this.#onResponse);
+	}
+
+	getCartWithAuth() {
+		return fetch(`${this.#baseurl}api/carts/items/`, {
+			method: 'GET',
+			headers: {
+				...this.#headers,
+				authorization: `Bearer ${getLocalData('access')}`,
+			},
+		}).then(this.#onResponse);
+	}
+
+	addToCartWithAuth(product, quantity) {
+		return fetch(`${this.#baseurl}api/carts/add_item/`, {
+			method: 'POST',
+			headers: {
+				...this.#headers,
+				authorization: `Bearer ${getLocalData('access')}`,
+			},
+			body: JSON.stringify({
+				product,
+				quantity,
+			}),
+		}).then(this.#onResponse);
+	}
+
+	deleteFromCartWithAuth(id) {
+		return fetch(`${this.#baseurl}api/carts/delete_item/${id}/`, {
+			method: 'DELETE',
+			headers: {
+				...this.#headers,
+				authorization: `Bearer ${getLocalData('access')}`,
 			},
 		}).then(this.#onResponse);
 	}
