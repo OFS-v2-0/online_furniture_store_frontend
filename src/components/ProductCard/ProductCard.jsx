@@ -35,11 +35,8 @@ function ProductCard({
 	const cardRef = useRef(null);
 
 	useEffect(() => {
-		setCardWidth(cardRef.current.clientWidth);
-	}, [index]);
-
-	useEffect(() => {
 		const card = cardRef.current;
+		setCardWidth(card.clientWidth);
 		const onChange = () => setAnimation(true);
 
 		card.addEventListener('mouseenter', onChange);
@@ -47,7 +44,7 @@ function ProductCard({
 		return () => {
 			card.removeEventListener('mouseenter', onChange);
 		};
-	}, []);
+	}, [index]);
 
 	const onLikeClick = () => {
 		if (inFavorites) {
