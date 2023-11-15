@@ -13,7 +13,7 @@ function Material() {
 	const category = pathname.slice(1);
 	const { materials, filters } = useSelector(selectFilters);
 	const dispatch = useDispatch();
-	const materialsByCategory = materials[category].length
+	const materialsByCategory = materials[category]
 		? materials[category]
 		: [{ id: '', name: '' }];
 
