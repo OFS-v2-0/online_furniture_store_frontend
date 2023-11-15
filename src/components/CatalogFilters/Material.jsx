@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import MultiSelect from '../UI/Select/MultiSelect';
 import {
@@ -8,6 +9,8 @@ import {
 } from '../../store/filters/filters-slice';
 
 function Material() {
+	const { pathname } = useLocation();
+	const category = pathname.slice(1);
 	const { materials, filters } = useSelector(selectFilters);
 	const dispatch = useDispatch();
 
@@ -30,7 +33,7 @@ function Material() {
 			placeholder="Выберите материал..."
 			onChange={handleChange}
 			reset={!filters.material}
-			options={materials.map(({ id, name }) => ({
+			options={materials[category].map(({ id, name }) => ({
 				value: id,
 				label: name,
 			}))}

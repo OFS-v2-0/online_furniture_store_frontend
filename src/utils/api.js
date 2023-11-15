@@ -79,7 +79,7 @@ export class Api {
 	}
 
 	getMaterials() {
-		return fetch(`${this.#baseurl}api/materials/`, {
+		return fetch(`${this.#baseurl}api/products/materials_by_category/`, {
 			headers: {
 				...this.#headers,
 			},

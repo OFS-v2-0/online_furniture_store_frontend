@@ -9,7 +9,7 @@ const initialState = {
 	colors: [],
 	collections: [],
 	brands: [],
-	materials: [],
+	materials: {},
 };
 
 export const sliceName = 'filters';
@@ -55,7 +55,7 @@ export const fetchMaterials = createAsyncThunk(
 	async (_, { fulfillWithValue, rejectWithValue }) => {
 		try {
 			const data = await api.getMaterials();
-			return fulfillWithValue([...data]);
+			return fulfillWithValue({ ...data });
 		} catch (err) {
 			return rejectWithValue(err);
 		}
