@@ -13,6 +13,9 @@ function Material() {
 	const category = pathname.slice(1);
 	const { materials, filters } = useSelector(selectFilters);
 	const dispatch = useDispatch();
+	const materialsByCategory = materials[category].length
+		? materials[category]
+		: [{ id: '', name: '' }];
 
 	useEffect(() => {
 		dispatch(fetchMaterials());
@@ -33,7 +36,7 @@ function Material() {
 			placeholder="Выберите материал..."
 			onChange={handleChange}
 			reset={!filters.material}
-			options={materials[category].map(({ id, name }) => ({
+			options={materialsByCategory.map(({ id, name }) => ({
 				value: id,
 				label: name,
 			}))}
