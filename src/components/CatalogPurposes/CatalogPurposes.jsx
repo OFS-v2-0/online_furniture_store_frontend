@@ -12,6 +12,9 @@ import wardrobe from '../../assets/img/wardrobe.png';
 import shelving from '../../assets/img/shelving.png';
 import nightstand from '../../assets/img/nightstand.png';
 import documentCabinet from '../../assets/img/documentCabinet.png';
+import sofaForManager from '../../assets/img/sofaForManager.png';
+import sofaForMeetingRoom from '../../assets/img/sofaForMeetingRoom.png';
+import sofaOfficeInterior from '../../assets/img/sofaOfficeInterior.png';
 
 function CatalogPurposes({ category, purpose }) {
 	const dispatch = useDispatch();
@@ -33,7 +36,11 @@ function CatalogPurposes({ category, purpose }) {
 			{ title: 'Стеллаж', image: shelving },
 			{ title: 'Для одежды', image: wardrobe },
 		],
-		sofas: [],
+		sofas: [
+			{ title: 'Офисный интерьер', image: sofaOfficeInterior },
+			{ title: 'Для переговорной', image: sofaForMeetingRoom },
+			{ title: 'Для руководителя', image: sofaForManager },
+		],
 	};
 
 	const handlePurpose = (e) => {
