@@ -22,6 +22,7 @@
 }
 
 .card:hover .inStock {
+	transition-delay: 0.2s;
 	visibility: visible;
 }
 
@@ -234,6 +235,7 @@
 	margin: 0 0 8px;
 	color: #989898;
 	visibility: hidden;
+	transition: visibility ease-in-out 0.2s;
 }
 
 .aboutProperty {
