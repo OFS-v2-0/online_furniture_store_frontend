@@ -15,7 +15,7 @@ const routes = [
 	{ path: '/sofas', breadcrumb: 'Диваны' },
 	{ path: '/sale', breadcrumb: 'Распродажа' },
 	{ path: '/rules-sale', breadcrumb: 'Условия заказа' },
-	{ path: '/under-construction', breadcrumb: '/under-construction' },
+	{ path: '/under-construction', breadcrumb: 'Страница в разработке' },
 	{ path: '/rules-consent', breadcrumb: 'Условия конфиденциальности' },
 	{ path: '/rules-data', breadcrumb: 'Политика обработки персональных данных' },
 	{ path: '/order-form', breadcrumb: 'Форма заказа' },
