@@ -22,7 +22,7 @@
 }
 
 .card:hover .inStock {
-	transition-delay: 0.2s;
+	transition-delay: 0.3s;
 	visibility: visible;
 }
 
