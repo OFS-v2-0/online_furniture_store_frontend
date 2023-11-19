@@ -37,6 +37,7 @@ function ProductCard({
 	useEffect(() => {
 		const card = cardRef.current;
 		setCardWidth(card.clientWidth);
+		setAnimation(false);
 		const onChange = () => setAnimation(true);
 
 		card.addEventListener('mouseenter', onChange);
